@@ -6,10 +6,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
-    public static String source = "G:\\06.03.SkillBox\\java_basics\\09_FilesAndNetwork\\homework_9.3\\src\\test\\resources\\movementList.csv";
-    static String withoutS(FStr fs, String s){
+    public static String source = "G:\\SkillGit16.05\\Skill\\homework_9.3\\src\\test\\resources\\movementList.csv";
+
+    static String withoutS(FStr fs, String s) {
         return fs.func(s);
     }
+
     public static void main(String[] args) {
         String line = null;
 
