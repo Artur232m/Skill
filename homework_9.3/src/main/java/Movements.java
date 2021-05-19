@@ -1,53 +1,48 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Movements {
-    private  String fullInfo;
-    private  String cardInformation;
-    private  String moneyIn;
+   private String nameCompany;
+   private double coming;
+   private double costs;
 
-
-    public void setFullInfo(String fullInfo) {
-        this.fullInfo = fullInfo;
+    public String getNameCompany() {
+        return nameCompany;
     }
 
-    public void setCardInformation(String cardInformation) {
-        this.cardInformation = cardInformation;
+    public void setNameCompany(String nameCompany) {
+        this.nameCompany = nameCompany;
     }
 
-    public void setMoneyIn(String moneyIn) {
-        this.moneyIn = moneyIn;
+    public double getComing() {
+        return coming;
     }
 
-    public void setMoneyTo(String moneyTo) {
-        this.moneyTo = moneyTo;
+    public void setComing(ArrayList<Double> com) {
+        List<Double> list = new ArrayList<>(com);
+        coming = 0;
+
+        for (int i = 0; i < list.size(); i++) {
+           coming += list.get(i);
+        }
     }
 
-    public String getFullInfo() {
-        return fullInfo;
+    public double getCosts() {
+        return costs;
     }
 
-    public String getCardInformation() {
-        return cardInformation;
-    }
+    public void setCosts(ArrayList<String> com) {
+        List<String> list = new ArrayList<>(com);
+        coming = 0;
 
-    public String getMoneyIn() {
-        return moneyIn;
-    }
+        for (int i = 0; i < list.size(); i++) {
 
-    public String getMoneyTo() {
-        return moneyTo;
+            coming += Double.valueOf(list.get(i).replace(',','.'));
+        }
     }
-
-    private  String moneyTo;
 
     public   String toString(){
-        return "Full Information :" + getFullInfo() + "\nCard information" + getCardInformation() +
-                "\nMoney in card :" + getMoneyIn() + "\nMoney to :"+ getMoneyTo();
+        return "Расходы :" + getCosts() + "\nДоходы :" + getComing()+
+                "\nНомер счета :" + getNameCompany();
     }
-
-//    public double getExpenseSum() {
-//        return 0.0;
-//    }
-//
-//    public double getIncomeSum() {
-//        return 0.0;
-//    }
 }

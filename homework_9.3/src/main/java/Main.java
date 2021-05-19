@@ -13,13 +13,16 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        Movements movements = new Movements();
         String line = null;
 
         File file = new File(source);
         String[] strings = new String[0];
 
-        ArrayList<String> list1 = new ArrayList<>();
+
         Pattern pattern = Pattern.compile("([0-9]{2,5}\\.[0-9]{2})");
+        Pattern patternCount = Pattern.compile("([0-9]{20})");
+        Pattern patternCosts = Pattern.compile("([0-9]{1,5}\\,[0-9]{0,2})");
 
         BufferedReader reader = null;
         FileReader fr = null;
@@ -28,6 +31,10 @@ public class Main {
         BufferedWriter writer = null;
 
         ArrayList<String> list = new ArrayList<>();
+        ArrayList<Double> count = new ArrayList<>();
+        ArrayList<String> costs = new ArrayList<>();
+
+        int m = 0;
 
         try {
             fr = new FileReader(file);
@@ -35,12 +42,27 @@ public class Main {
 
             while ((line = reader.readLine()) != null) {
                 strings = line.split("\\t");
+                Matcher matcher = pattern.matcher(line);
+                Matcher matcherCount = patternCount.matcher(line);
+                Matcher matcherCosts = patternCosts.matcher(line);
+
+                while (matcher.find()){
+                    m++;
+                    if (Double.valueOf(matcher.group()) > 32){
+                       count.add (Double.valueOf(matcher.group()));
+                    }
+                }
+                while (matcherCount.find()){
+                    movements.setNameCompany(matcherCount.group());
+                }
+                while (matcherCosts.find()){
+                    costs.add(matcherCosts.group());
+                }
+
 
                 for (int i = 0; i < strings.length; i++) {
                     fw = new FileWriter(String.valueOf(list.add(strings[i])), true);
-                    if (strings[i].contains(pattern.pattern())) {
-
-                    }
+                   
                     writer = new BufferedWriter(fw);
                     writer.write(line);
                     writer.newLine();
@@ -69,26 +91,8 @@ public class Main {
             }
         }
 
-        list.stream().forEach(System.out::println);
-//        System.out.println("*********");
-//        String s = list.get(1);
-//
-//
-//        String out;
-//        out = withoutS((str) -> {
-//            String result = "";
-//            int i;
-//            for (i = 0; i < str.length(); i ++){
-//                if (str.charAt(i) !=' '){
-//                    result += str.charAt(i);
-//                }
-//            }
-//            return result;
-//        },s);
-//
-
-
-//        System.out.println(out);
-        System.out.println(list1.size());
+        movements.setComing(count);
+        movements.setCosts(costs);
+        System.out.println(movements.toString());
     }
 }
